@@ -5,11 +5,15 @@ import './index.css';
 import App from './App';
 import { store } from './store'
 import * as serviceWorker from './serviceWorker';
+import { ApolloProvider } from '@apollo/react-hooks';
+import {apolloClient} from "./graphql";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <ApolloProvider client={apolloClient}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ApolloProvider>
 , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
