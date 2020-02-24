@@ -1,16 +1,14 @@
 import React, { FC } from 'react'
-import { useSelector } from 'react-redux'
-import {IStore} from "../store";
+import {useTodo} from "../hooks/useTodo";
 
 export const Home: FC = () => {
-  const todo = useSelector((state: IStore) => state.todo);
-
-  console.log(todo)
+  const { todo, addTodo } = useTodo()
 
   return (
     <div>
       HOME
-      {todo.todos.map(v => v.name)}
+      {todo.todos.map(v => (<p>{v.name}</p>))}
+      <button type="button" onClick={addTodo}>Add</button>
     </div>
   );
 }
