@@ -1,6 +1,6 @@
 import React, {FC, useRef, useState} from 'react'
-import {useTodo} from "../hooks/useTodo";
-import {useCategory} from "../hooks/gql/useCategory";
+import {useTodo} from "../../hooks/useTodo";
+import {useCategory} from "../../hooks/gql/useCategory";
 
 const NetworkStatus = {
   loading: 1,
@@ -22,8 +22,10 @@ export const Home: FC = () => {
     remove: [removeCategory, {loading: removing}],
   } = useCategory()
 
-  const [deletings, setDeleting] = useState<{ [key: number]: boolean }>({})
-  const [updatings, setUpdating] = useState<{ [key: number]: boolean }>({})
+  const [deletings, setDeleting] = useState<{ [key: string]: boolean }>({})
+  const [updatings, setUpdating] = useState<{ [key: string]: boolean }>({})
+
+  console.log(data)
 
   if (error) return <p>Error :(</p>;
 
@@ -44,7 +46,7 @@ export const Home: FC = () => {
       {todo.todos.map(v => (<p key={v.name}>{v.name}</p>))}
 
       <h3>store of gql network status: {networkStatus}</h3>
-      {data && data.categories.data.map((category: any) => (
+      {data && data.categories.data.map((category) => (
           <Row
             key={category.id}
             category={category}
@@ -97,7 +99,7 @@ export const Home: FC = () => {
 }
 
 interface Props {
-  category: any
+  category: Category
   onUpdate: (id: string) => void
   updating: boolean
   onDelete: (id: string) => void

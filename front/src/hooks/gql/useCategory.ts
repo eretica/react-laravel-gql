@@ -1,12 +1,6 @@
 import {gql} from "apollo-boost";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 
-interface Category {
-    id: string
-    name: string
-    description: string
-}
-
 const FETCH = gql`
       {
         categories {
@@ -47,8 +41,17 @@ const REMOVE = gql`
   }
 `;
 
+type Paginate<T> = {
+  paginatorInfo: {
+    page: number
+  }
+  data: T[]
+}
+
 export const useCategory = () => {
-    const fetch = useQuery(FETCH, {
+    const fetch = useQuery<{
+      categories: Paginate<Category>
+    }>(FETCH, {
         notifyOnNetworkStatusChange: true
     });
     const create = useMutation<Category, {name: string}>(CREATE);
