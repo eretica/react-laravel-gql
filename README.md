@@ -23,3 +23,5 @@ http://127.0.0.1:10080/graphql-playground
 `yarn`
 
 `yarn start`
+
+http://localhost:3000/
