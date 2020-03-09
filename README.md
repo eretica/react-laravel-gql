@@ -12,6 +12,8 @@
 
 `composer install`
 
+`php artisan migrate`
+
 http://127.0.0.1:10080
 
 http://127.0.0.1:10080/graphql-playground
