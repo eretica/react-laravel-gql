@@ -48,12 +48,17 @@ type Paginate<T> = {
   data: T[]
 }
 
+type PaginateCategory = {
+  categories: Paginate<Category>
+}
+
+const defaultQueryOption = {
+  notifyOnNetworkStatusChange: true
+}
+
 export const useCategory = () => {
-    const fetch = useQuery<{
-      categories: Paginate<Category>
-    }>(FETCH, {
-        notifyOnNetworkStatusChange: true
-    });
+    // todo loading refreshのステータスはここで抽象化しとく？ redux的にLoadingをLocalStateで管理するほうがよさげ？
+    const fetch = useQuery<PaginateCategory>(FETCH, defaultQueryOption);
     const create = useMutation<Category, {name: string}>(CREATE);
     const update = useMutation<Category, {id: string, name: string}>(UPDATE);
     const remove = useMutation<Category, {id: string}>(REMOVE);
