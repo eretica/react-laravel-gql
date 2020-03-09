@@ -13,8 +13,8 @@ extend type Query {
 extend type Mutation {
     createCategory(name: String!): Category @create
     updateCategory(id: ID!, name: String): Category @update
-    deleteCategory(id: ID!): Category @delete
-    deleteCategoryByName(
+    removeCategory(id: ID!): Category @delete
+    removeCategoryByName(
         name: String!
     ): SimpleResponse @field(resolver: "App\\Http\\GraphQL\\Mutations\\DeleteCategoryByName@resolve")
 }

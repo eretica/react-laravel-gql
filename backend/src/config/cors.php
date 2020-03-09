@@ -22,6 +22,7 @@ return [
      * Example: ['api/*']
      */
     'paths' => [
+        'api/*',
         'graphql'
     ],
 

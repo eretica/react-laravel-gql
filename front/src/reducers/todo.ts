@@ -1,6 +1,4 @@
-// import { produce } from 'immer'
 import produce from 'immer'
-import { Todo } from '../types'
 
 interface State {
   todos: Todo[]

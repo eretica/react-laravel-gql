@@ -13,12 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
-Route::get('test', function () {
-    return 'hoge';
-});
-
-Route::resource('category', 'Api\CategoryController');
+Route::get('category', 'Api\CategoryController@index');
