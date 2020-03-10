@@ -7,7 +7,6 @@ import {
   MutationUpdateCategoryArgs, Query,
   QueryCategoriesArgs, QueryCategoryArgs
 } from "../../../generated/graphql";
-import {useState} from "react";
 import {parseLazyQuery, parseQuery} from "../../helpers/gqlHelpers";
 
 const FETCH = gql`

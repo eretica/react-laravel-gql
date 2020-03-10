@@ -26,8 +26,6 @@ export const CategoryMaster: FC = () => {
 
   if (error) return <p>Error :(</p>;
 
-  console.log(findedCategory)
-
   return (
     <div>
       HOME
