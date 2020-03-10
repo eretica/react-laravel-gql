@@ -1,72 +1,86 @@
 import {gql} from "apollo-boost";
-import {useMutation, useQuery} from "@apollo/react-hooks";
+import {useMutation, useQuery, useLazyQuery} from "@apollo/react-hooks";
+import {
+  Mutation,
+  MutationCreateCategoryArgs,
+  MutationRemoveCategoryArgs, MutationRemoveCategoryByNameArgs,
+  MutationUpdateCategoryArgs, Query,
+  QueryCategoriesArgs, QueryCategoryArgs
+} from "../../../generated/graphql";
+import {useState} from "react";
+import {parseLazyQuery, parseQuery} from "../../helpers/gqlHelpers";
 
 const FETCH = gql`
-      {
+    query fetchCategories {
         categories {
-          paginatorInfo {
-            total
-          }
-          data {
+            paginatorInfo {
+                total
+            }
+            data {
+                id
+                name
+            }
+        }
+    }
+
+`
+
+const FIND = gql`
+    query FIndCategory($id: ID!) {
+        category (id: $id) {
             id
             name
-          }
         }
-      }
-    `
+    }
+`
 
 const CREATE = gql`
-  mutation CreateCategory($name: String!) {
-    createCategory(name: $name) {
-        id
-        name
+    mutation CreateCategory($name: String!) {
+        createCategory(name: $name) {
+            id
+            name
+        }
     }
-  }
 `
 
 const UPDATE = gql`
-  mutation removeCategory($id: ID!, $name: String!) {
-    updateCategory(id: $id, name: $name) {
-      name
-      id
+    mutation removeCategory($id: ID!, $name: String!) {
+        updateCategory(id: $id, name: $name) {
+            name
+            id
+        }
     }
-  }
 `;
 
 const REMOVE = gql`
-  mutation removeCategory($id: ID!) {
-    removeCategory(id: $id) {
-      id
+    mutation removeCategory($id: ID!) {
+        removeCategory(id: $id) {
+            id
+        }
     }
-  }
 `;
 
-type Paginate<T> = {
-  paginatorInfo: {
-    page: number
-  }
-  data: T[]
-}
-
-type PaginateCategory = {
-  categories: Paginate<Category>
-}
-
-const defaultQueryOption = {
-  notifyOnNetworkStatusChange: true
-}
 
 export const useCategory = () => {
-    // todo loading refreshのステータスはここで抽象化しとく？ redux的にLoadingをLocalStateで管理するほうがよさげ？
-    const fetch = useQuery<PaginateCategory>(FETCH, defaultQueryOption);
-    const create = useMutation<Category, {name: string}>(CREATE);
-    const update = useMutation<Category, {id: string, name: string}>(UPDATE);
-    const remove = useMutation<Category, {id: string}>(REMOVE);
+  // todo loading refreshのステータスはここで抽象化しとく？ redux的にLoadingをLocalStateで管理するほうがよさげ？
+  const fetch = useQuery<Pick<Query, 'categories'>, QueryCategoriesArgs>(FETCH, {
+    notifyOnNetworkStatusChange: true
 
-    return {
-        fetch,
-        create,
-        update,
-        remove,
-    }
+  });
+  const find = useLazyQuery<Pick<Query, 'category'>, QueryCategoryArgs>(FIND, {
+    notifyOnNetworkStatusChange: true
+  });
+  const create = useMutation<Mutation['createCategory'], MutationCreateCategoryArgs>(CREATE);
+  const update = useMutation<Mutation['updateCategory'], MutationUpdateCategoryArgs>(UPDATE);
+  const remove = useMutation<Mutation['removeCategory'], MutationRemoveCategoryArgs>(REMOVE);
+  const removeByName = useMutation<Mutation['removeCategoryByName'], MutationRemoveCategoryByNameArgs>(REMOVE);
+
+  return {
+    fetch: parseQuery(fetch),
+    find: parseLazyQuery(find),
+    create,
+    update,
+    remove,
+    removeByName,
+  }
 }

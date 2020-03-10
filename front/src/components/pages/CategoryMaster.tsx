@@ -1,33 +1,32 @@
-import React, {FC, useRef, useState} from 'react'
+import React, {FC, useEffect, useRef, useState} from 'react'
 import {useTodo} from "../../hooks/useTodo";
 import {useCategory} from "../../hooks/gql/useCategory";
+import {Category} from "../../../generated/graphql";
+import {Loading} from "../elements/Loading";
+import {Hider} from "../elements/Hider";
 
-const NetworkStatus = {
-  loading: 1,
-  setVariables: 2,
-  fetchMore: 3,
-  refetch: 4,
-  poll: 6,
-  ready: 7,
-  error: 8
-}
 
-export const Home: FC = () => {
+export const CategoryMaster: FC = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const {todo, addTodo} = useTodo()
   const {
-    fetch: {loading: fetching, data, error, refetch, networkStatus},
+    fetch: {loading: fetching, refetching, data, error, refetch, networkStatus},
+    find: [find, {loading: finding, data: findedCategory}],
     create: [createCategory, {loading: creating}],
     update: [updateCategory, {loading: updating}],
     remove: [removeCategory, {loading: removing}],
   } = useCategory()
 
+  useEffect(() => {
+    find({variables: {id: '16'}})
+  }, [])
+
   const [deletings, setDeleting] = useState<{ [key: string]: boolean }>({})
   const [updatings, setUpdating] = useState<{ [key: string]: boolean }>({})
 
-  console.log(data)
-
   if (error) return <p>Error :(</p>;
+
+  console.log(findedCategory)
 
   return (
     <div>
@@ -38,51 +37,47 @@ export const Home: FC = () => {
         refetch
       </button>
 
-      {networkStatus === NetworkStatus.loading && <p>Loading...</p>}
-
       <br/>
       <h3>store of redux <button type="button" onClick={addTodo}>Add</button>
       </h3>
       {todo.todos.map(v => (<p key={v.name}>{v.name}</p>))}
 
       <h3>store of gql network status: {networkStatus}</h3>
-      {data && data.categories.data.map((category) => (
-          <Row
-            key={category.id}
-            category={category}
-            onUpdate={() => {
-              setUpdating({
-                ...updatings,
-                [category.id]: true
-              })
-              updateCategory({variables: {id: category.id, name: `${category.name}+`}})
-                .then(refetch)
-                .then(() => {
-                  // todo モデルに持たせる
-                  delete updatings[category.id]
-                  setUpdating({...updatings})
-                })
-            }}
-            updating={!!updatings[category.id]}
-            onDelete={() => {
-              setDeleting({
-                ...deletings,
-                [category.id]: true
-              })
-              removeCategory({variables: {id: category.id}})
-                .then(refetch)
-                .then(() => {
-                  // todo モデルに持たせる
-                  delete deletings[category.id]
-                  setDeleting({...deletings})
-                })
-            }}
-            deleting={!!deletings[category.id]}
-          />
-        )
-      )}
 
-      {networkStatus === NetworkStatus.refetch && <p>refetch...</p>}
+      <Hider isHide={fetching || refetching}>
+        {data && data.categories!.data.map((category) => (
+            <Row
+              key={category.id}
+              category={category}
+              onUpdate={async () => {
+                setUpdating({
+                  ...updatings,
+                  [category.id]: true
+                })
+
+                await updateCategory({variables: {id: category.id, name: `${category.name}+`}})
+                await refetch({})
+                // todo モデルに持たせる?
+                delete updatings[category.id]
+                setUpdating({...updatings})
+              }}
+              updating={!!updatings[category.id]}
+              onDelete={async () => {
+                setDeleting({
+                  ...deletings,
+                  [category.id]: true
+                })
+                await removeCategory({variables: {id: category.id}})
+                await refetch({})
+                // todo モデルに持たせる
+                delete deletings[category.id]
+                setDeleting({...deletings})
+              }}
+              deleting={!!deletings[category.id]}
+            />
+          )
+        )}
+      </Hider>
 
       <br/>
       <input type="text" ref={inputRef} disabled={creating}/>

@@ -1,12 +1,11 @@
 import React from 'react';
-import './App.css';
-import {Home} from './components/pages/Home';
+import {CategoryMaster} from './components/pages/CategoryMaster';
 
 const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Home />
+        <CategoryMaster />
       </header>
     </div>
   );
