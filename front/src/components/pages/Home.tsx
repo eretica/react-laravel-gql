@@ -2,8 +2,7 @@ import React, {FC} from 'react'
 import {Link} from 'react-router-dom'
 import {paths} from "../../const/paths";
 
-
-export const Home: FC = () => (
+const Home: FC = () => (
     <div>
       <ul>
         <li>
@@ -16,3 +15,4 @@ export const Home: FC = () => (
     </div>
 );
 
+export default Home

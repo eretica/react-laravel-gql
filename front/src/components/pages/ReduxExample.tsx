@@ -1,7 +1,7 @@
 import React, {FC} from 'react'
 import {useTodo} from "../../hooks/useTodo";
 
-export const ReduxExample: FC = () => {
+const ReduxExample: FC = () => {
   const {todo, addTodo} = useTodo()
 
   return (
@@ -20,3 +20,5 @@ export const ReduxExample: FC = () => {
     </div>
   );
 }
+
+export default ReduxExample

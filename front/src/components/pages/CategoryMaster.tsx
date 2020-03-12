@@ -1,12 +1,9 @@
 import React, {FC, useEffect, useRef, useState} from 'react'
-import {useTodo} from "../../hooks/useTodo";
 import {useCategory} from "../../hooks/gql/useCategory";
 import {Category} from "../../../generated/graphql";
-import {Loading} from "../elements/Loading";
 import {Hider} from "../elements/Hider";
 
-
-export const CategoryMaster: FC = () => {
+const CategoryMaster: FC = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const {
     fetch: {loading: fetching, refetching, data, error, refetch, networkStatus},
@@ -112,3 +109,5 @@ export const Row: FC<Props> = ({category, onUpdate, updating, onDelete, deleting
     </p>
   )
 }
+
+export default CategoryMaster
