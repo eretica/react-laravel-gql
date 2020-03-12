@@ -69,10 +69,10 @@ const REMOVE_BY_NAME = gql`
 
 export const useCategory = () => {
   const fetch = useQuery<Pick<Query, 'categories'>, QueryCategoriesArgs>(FETCH);
-  const find = useQuery<Pick<Query, 'category'>, QueryCategoryArgs>(FETCH);
-  const create = useMutation<Pick<Mutation, 'createCategory'>, MutationCreateCategoryArgs>(FIND);
-  const update = useMutation<Pick<Mutation, 'updateCategory'>, MutationUpdateCategoryArgs>(CREATE);
-  const remove = useMutation<Pick<Mutation, 'removeCategory'>, MutationRemoveCategoryArgs>(UPDATE);
+  const find = useQuery<Pick<Query, 'category'>, QueryCategoryArgs>(FIND);
+  const create = useMutation<Pick<Mutation, 'createCategory'>, MutationCreateCategoryArgs>(CREATE);
+  const update = useMutation<Pick<Mutation, 'updateCategory'>, MutationUpdateCategoryArgs>(UPDATE);
+  const remove = useMutation<Pick<Mutation, 'removeCategory'>, MutationRemoveCategoryArgs>(REMOVE);
   const removeByName = useMutation<Pick<Mutation, 'removeCategoryByName'>, MutationRemoveCategoryByNameArgs>(REMOVE_BY_NAME);
 
   return {
