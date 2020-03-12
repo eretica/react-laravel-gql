@@ -8,7 +8,6 @@ import {Hider} from "../elements/Hider";
 
 export const CategoryMaster: FC = () => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const {todo, addTodo} = useTodo()
   const {
     fetch: {loading: fetching, refetching, data, error, refetch, networkStatus},
     find: [find, {loading: finding, data: findedCategory}],
@@ -28,7 +27,7 @@ export const CategoryMaster: FC = () => {
 
   return (
     <div>
-      HOME
+      GraphQL Example
       <button onClick={() => {
         refetch()
       }}>
@@ -36,9 +35,6 @@ export const CategoryMaster: FC = () => {
       </button>
 
       <br/>
-      <h3>store of redux <button type="button" onClick={addTodo}>Add</button>
-      </h3>
-      {todo.todos.map(v => (<p key={v.name}>{v.name}</p>))}
 
       <h3>store of gql network status: {networkStatus}</h3>
 
