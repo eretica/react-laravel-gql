@@ -1,5 +1,4 @@
 import {gql} from "apollo-boost";
-import {useMutation, useQuery, useLazyQuery} from "@apollo/react-hooks";
 import {
   Mutation,
   MutationCreateCategoryArgs,
@@ -7,7 +6,7 @@ import {
   MutationUpdateCategoryArgs, Query,
   QueryCategoriesArgs, QueryCategoryArgs
 } from "../../../generated/graphql";
-import {parseLazyQuery, parseQuery} from "../../helpers/gqlHelpers";
+import {useMutation, useQuery} from "./index";
 
 const FETCH = gql`
     query fetchCategories {
@@ -59,24 +58,26 @@ const REMOVE = gql`
     }
 `;
 
+const REMOVE_BY_NAME = gql`
+    mutation removeByName($name: String!) {
+        removeCategoryByName(name: $name) {
+            res
+        }
+    }
+`;
+
 
 export const useCategory = () => {
-  // todo loading refreshのステータスはここで抽象化しとく？ redux的にLoadingをLocalStateで管理するほうがよさげ？
-  const fetch = useQuery<Pick<Query, 'categories'>, QueryCategoriesArgs>(FETCH, {
-    notifyOnNetworkStatusChange: true
-
-  });
-  const find = useLazyQuery<Pick<Query, 'category'>, QueryCategoryArgs>(FIND, {
-    notifyOnNetworkStatusChange: true
-  });
-  const create = useMutation<Mutation['createCategory'], MutationCreateCategoryArgs>(CREATE);
-  const update = useMutation<Mutation['updateCategory'], MutationUpdateCategoryArgs>(UPDATE);
-  const remove = useMutation<Mutation['removeCategory'], MutationRemoveCategoryArgs>(REMOVE);
-  const removeByName = useMutation<Mutation['removeCategoryByName'], MutationRemoveCategoryByNameArgs>(REMOVE);
+  const fetch = useQuery<Pick<Query, 'categories'>, QueryCategoriesArgs>(FETCH);
+  const find = useQuery<Pick<Query, 'category'>, QueryCategoryArgs>(FETCH);
+  const create = useMutation<Pick<Mutation, 'createCategory'>, MutationCreateCategoryArgs>(FIND);
+  const update = useMutation<Pick<Mutation, 'updateCategory'>, MutationUpdateCategoryArgs>(CREATE);
+  const remove = useMutation<Pick<Mutation, 'removeCategory'>, MutationRemoveCategoryArgs>(UPDATE);
+  const removeByName = useMutation<Pick<Mutation, 'removeCategoryByName'>, MutationRemoveCategoryByNameArgs>(REMOVE_BY_NAME);
 
   return {
-    fetch: parseQuery(fetch),
-    find: parseLazyQuery(find),
+    fetch,
+    find,
     create,
     update,
     remove,

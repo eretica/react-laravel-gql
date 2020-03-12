@@ -1,9 +1,17 @@
-import React, {FC} from 'react'
+import React, {ButtonHTMLAttributes, FC} from 'react'
 
 interface Props {
-  color: 'primary' | 'secondary'
+  onClick?: () => void
+  color?: 'primary' | 'secondary'
 }
 
-export const Button: FC = ({ children }) => (
-  <button>{children}</button>
+export const Button: FC<Props & ButtonHTMLAttributes<HTMLButtonElement>> = ({
+  children,
+  ...rest
+}) => (
+  <button
+    {...rest}
+  >
+    {children}
+  </button>
 )

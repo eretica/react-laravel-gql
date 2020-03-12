@@ -12,10 +12,12 @@ const App = () => {
       <header className="App-header">
         <Suspense fallback={<div>Loading...</div>}>
         <BrowserRouter>
-          <Route exact path={paths.home} component={Home} />
-          <Route exact path={paths.reduxExample} component={ReduxExample} />
-          <Route exact path={paths.gqlExample} component={CategoryMaster} />
-          <Redirect to={paths.home} />
+          <Switch>
+            <Route exact path={paths.home} component={Home} />
+            <Route exact path={paths.reduxExample} component={ReduxExample} />
+            <Route exact path={paths.gqlExample} component={CategoryMaster} />
+            <Redirect to={paths.home} />
+          </Switch>
         </BrowserRouter>
         </Suspense>
       </header>
