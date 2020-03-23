@@ -12,7 +12,6 @@ type ResolvedType<T> =
   T extends Promise<infer R> ? R : T;
 
 const CategoryMaster: FC = () => {
-  const inputRef = useRef<HTMLInputElement>(null)
   const {
     fetch: _fetch,
     find,
@@ -79,10 +78,8 @@ const CategoryMaster: FC = () => {
 
       <br/>
 
-      <TextOnlyForm onSubmit={() => {
-        const v = inputRef.current!.value
-        create({name: v}).then(() => {
-          inputRef.current!.value = ''
+      <TextOnlyForm onSubmit={(value) => {
+        create({name: value}).then(() => {
           fetch()
         })
       }}/>

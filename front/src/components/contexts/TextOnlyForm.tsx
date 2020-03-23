@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const TextOnlyForm: FC<Props> = ({
-  onSubmit
+  onSubmit,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -16,7 +16,9 @@ export const TextOnlyForm: FC<Props> = ({
     <>
       <InputText ref={inputRef} />
       <Button onClick={() => {
-        onSubmit(inputRef.current?.value || '')
+        console.log(inputRef)
+        console.log(inputRef.current!.value)
+        onSubmit(inputRef.current!.value || '')
       }} />
     </>
   )
