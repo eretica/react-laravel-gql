@@ -15,13 +15,14 @@ export const TextOnlyForm: FC<Props> = ({
   const inputRef = useRef<HTMLInputElement>(null)
 
   return (
-    <>
-      <InputText ref={inputRef} />
-      <Button onClick={() => {
-        onSubmit(inputRef.current!.value || '')
-      }} >
+    <form onSubmit={(e) => {
+      e.preventDefault()
+      onSubmit(inputRef.current!.value || '')
+    }}>
+      <InputText ref={inputRef}/>
+      <Button type='submit'>
         {submitLabel ?? '送信'}
       </Button>
-    </>
+    </form>
   )
 }

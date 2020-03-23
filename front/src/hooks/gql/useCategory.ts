@@ -2,7 +2,7 @@ import {gql} from "apollo-boost";
 import {
   Mutation,
   MutationCreateCategoryArgs,
-  MutationRemoveCategoryArgs, MutationRemoveCategoryByNameArgs,
+  MutationRemoveCategoryArgs,
   MutationUpdateCategoryArgs, Query,
   QueryCategoriesArgs, QueryCategoryArgs
 } from "../../../generated/graphql";
@@ -62,14 +62,6 @@ const REMOVE = gql`
     }
 `;
 
-const REMOVE_BY_NAME = gql`
-    mutation removeByName($name: String!) {
-        removeCategoryByName(name: $name) {
-            res
-        }
-    }
-`;
-
 const gqlActions = {
   fetch: query<Pick<Query, 'categories'>, QueryCategoriesArgs>(FETCH),
   find: query<Pick<Query, 'category'>, QueryCategoryArgs>(FIND),
@@ -78,61 +70,77 @@ const gqlActions = {
   remove: mutation<Pick<Mutation, 'removeCategory'>, MutationRemoveCategoryArgs>(REMOVE),
 }
 
+type Processing = {
+  [index: string]: boolean
+}
+
 export const useCategory = () => {
   const categoryActions = useCategoryActions()
   const [loading, setLoading] = useState(false)
+  // todo モデルがベター？
+  const [updating, setUpdating] = useState<Processing>({})
+  const [deleting, setDeleting] = useState<Processing>({})
 
-  const fetch = (params: QueryCategoriesArgs) => {
+  const fetch = async (params: QueryCategoriesArgs) => {
     setLoading(true)
-    return gqlActions.fetch(params)
-      .then((result) => {
-        categoryActions.fetch({
-          categories: result.data.categories!.data
-        });
-      }).finally(() => {
-        setLoading(false)
-      })
+    const result = await gqlActions.fetch(params)
+    categoryActions.fetch({
+      categories: result.data.categories!.data
+    });
+    setLoading(false)
   };
 
-  const find = (params: QueryCategoryArgs) => {
-    return gqlActions.find(params)
-      .then((result) => {
-        categoryActions.find({
-          category: result.data.category!
-        });
-      })
+  const find = async (params: QueryCategoryArgs) => {
+    const result = await gqlActions.find(params)
+    categoryActions.find({
+      category: result.data.category!
+    });
   };
 
-  const create = (params: MutationCreateCategoryArgs) => {
-    return gqlActions.create(params)
-      .then((result) => {
-        categoryActions.create({
-          category: result.data!.createCategory!
-        });
-      })
+  const create = async (params: MutationCreateCategoryArgs) => {
+    const result = await gqlActions.create(params)
+    categoryActions.create({
+      category: result.data!.createCategory!
+    });
   };
 
-  const update = (params: MutationUpdateCategoryArgs) => {
-    return gqlActions.update(params)
-      .then((result) => {
-        categoryActions.update({
-          category: result.data!.updateCategory!
-        });
-      })
+  const update = async (params: MutationUpdateCategoryArgs) => {
+    setUpdating({
+      ...updating,
+      [params.id]: true,
+    })
+    const result = await gqlActions.update(params)
+    categoryActions.update({
+      category: result.data!.updateCategory!
+    });
+    setUpdating({
+      ...updating,
+      [params.id]: false,
+    })
   };
 
-  const remove = (params: MutationRemoveCategoryArgs) => {
-    return gqlActions.remove(params)
-      .then((result) => {
-        categoryActions.remove({
-          id: params.id,
-        });
-      })
+  const remove = async (params: MutationRemoveCategoryArgs) => {
+    setDeleting({
+      ...updating,
+      [params.id]: true,
+    })
+
+    await gqlActions.remove(params)
+    categoryActions.remove({
+      id: params.id,
+    });
+
+    setDeleting({
+      ...updating,
+      [params.id]: false,
+    })
   };
 
   return {
     category: useSelector<IStore, IStore['category']>(state => {return state.category}),
     loading,
+    updating,
+    deleting,
     fetch,
     find,
     create,

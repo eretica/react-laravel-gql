@@ -1,37 +1,28 @@
-import React, {FC, useState} from 'react'
+import React, {FC} from 'react'
 import {Category} from "../../../generated/graphql";
 import {Button} from "../elements/Button";
 
 interface Props {
   category: Category
-  onUpdate: (id: string) => Promise<void>
-  onDelete: (id: string) => Promise<void>
+  onUpdate: (id: string) => void
+  updating: boolean
+  onDelete: (id: string) => void
+  deleting: boolean
 }
 
-export const CategoryRow: FC<Props> =  ({ category, onUpdate, onDelete }) => {
-  const [updating, setUpdating] = useState(false)
-  const [deleting, setDeleting] = useState(false)
-
+export const CategoryRow: FC<Props> =  ({ category, onUpdate, onDelete, updating, deleting }) => {
   return (
     <li>
       {category.name}
       <Button
         onClick={() => {
-          setUpdating(true)
           onUpdate(category.id)
-            .finally(() => {
-              setUpdating(false)
-            })
         }}>
         {updating ? '...updating' : 'あっぷでーと'}
       </Button>
       <Button
         onClick={() => {
-          setDeleting(true)
           onDelete(category.id)
-            .finally(() => {
-              setDeleting(false)
-            })
         }}>
         {deleting ? '...deleting' : 'x'}
       </Button>

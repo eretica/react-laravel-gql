@@ -11,6 +11,8 @@ const CategoryMaster: FC = () => {
   const {
     category,
     loading,
+    updating,
+    deleting,
     fetch,
     create,
     update,
@@ -42,14 +44,14 @@ const CategoryMaster: FC = () => {
           <CategoryList key={category.id}>
             <CategoryRow
               category={category}
-              onUpdate={async (id) => {
-                await update({id, name: `+`})
-                // await fetch({})
+              onUpdate={id => {
+                update({id, name: `${category.name}+`})
               }}
-              onDelete={async (id) => {
-                await remove({id})
-                // await fetch({})
+              updating={updating[category.id] || false}
+              onDelete={id => {
+                remove({id})
               }}
+              deleting={deleting[category.id] || false}
             />
           </CategoryList>
         ))}
@@ -59,8 +61,7 @@ const CategoryMaster: FC = () => {
 
       <TextOnlyForm onSubmit={(value) => {
         create({name: value}).then(() => {
-          // fetch({})
-        })
+      })
       }}/>
     </div>
   );
