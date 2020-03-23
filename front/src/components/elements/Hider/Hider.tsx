@@ -1,5 +1,5 @@
 import React, {FC, ReactNode} from 'react'
-import {Loading} from "./Loading";
+import {Loading} from "../Loading/Loading";
 
 interface Props {
   isHide: boolean

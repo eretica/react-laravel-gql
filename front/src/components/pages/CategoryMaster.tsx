@@ -1,10 +1,10 @@
 import React, {FC, useEffect} from 'react'
 import {useCategory} from "../../hooks/gql/useCategory";
-import {Hider} from "../elements/Hider";
-import {Button} from "../elements/Button";
+import {Hider} from "../elements/Hider/Hider";
+import {Button} from "../elements/Button/Button";
 import {CategoryList} from "../contexts/CategoryList";
 import {CategoryRow} from "../contexts/CategoryRow";
-import {Header} from "../elements/Header";
+import {Header} from "../elements/Header/Header";
 import {TextOnlyForm} from "../contexts/TextOnlyForm";
 
 const CategoryMaster: FC = () => {

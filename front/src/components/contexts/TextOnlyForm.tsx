@@ -1,6 +1,6 @@
 import React, {FC, useRef} from 'react'
-import {InputText} from "../elements/InputText";
-import {Button} from "../elements/Button";
+import {InputText} from "../elements/InputText/InputText";
+import {Button} from "../elements/Button/Button";
 
 type Props = {
   onSubmit: (text: string) => void

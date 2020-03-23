@@ -1,6 +1,6 @@
 import React, {FC} from 'react'
 import {Category} from "../../../generated/graphql";
-import {Button} from "../elements/Button";
+import {Button} from "../elements/Button/Button";
 
 interface Props {
   category: Category
