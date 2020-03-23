@@ -4,7 +4,7 @@ import {apolloClient} from "../../graphql";
 import {DocumentNode} from "graphql";
 import {FetchResult} from "apollo-link";
 
-export const useQuery =
+export const query =
   <T = any, TVariables = OperationVariables>(query: DocumentNode, options?: Omit<QueryOptions<TVariables>, 'query'>): (variables: TVariables) => Promise<ApolloQueryResult<T>> => {
   // todo TVariablesに必須があるときだけ必須にしたい?
   return (variables: TVariables) => apolloClient.query({
@@ -14,7 +14,7 @@ export const useQuery =
   })
 }
 
-export const useMutation = <T = any, TVariables = OperationVariables>(mutation: DocumentNode, options?: Omit<MutationOptions<T, TVariables>, 'mutation'>): (variables: TVariables) => Promise<FetchResult<T>> => {
+export const mutation = <T = any, TVariables = OperationVariables>(mutation: DocumentNode, options?: Omit<MutationOptions<T, TVariables>, 'mutation'>): (variables: TVariables) => Promise<FetchResult<T>> => {
   return (variables: TVariables) => apolloClient.mutate({
       mutation,
       variables,

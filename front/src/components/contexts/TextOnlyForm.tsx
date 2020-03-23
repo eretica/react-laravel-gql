@@ -4,11 +4,13 @@ import {Button} from "../elements/Button";
 
 type Props = {
   onSubmit: (text: string) => void
+  submitLabel?: string
   // validation?: todo react-hooks-form?
 }
 
 export const TextOnlyForm: FC<Props> = ({
   onSubmit,
+  submitLabel,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -16,10 +18,10 @@ export const TextOnlyForm: FC<Props> = ({
     <>
       <InputText ref={inputRef} />
       <Button onClick={() => {
-        console.log(inputRef)
-        console.log(inputRef.current!.value)
         onSubmit(inputRef.current!.value || '')
-      }} />
+      }} >
+        {submitLabel ?? '送信'}
+      </Button>
     </>
   )
 }

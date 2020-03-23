@@ -1,18 +1,18 @@
 import produce from 'immer'
 
-interface State {
+type TodoState = {
   todos: Todo[]
 }
 
-const initialState: State = {
+const initialState: TodoState = {
   todos: [
     {name: 'a'},
     {name: 'b'},
   ]
 }
 
-export const todoReducer = (state = initialState, action: any) =>
-  produce<State, State>(state, draft => {
+export const todoReducer = (state = initialState, action: any): TodoState =>
+  produce<TodoState, TodoState>(state, draft => {
     switch (action.type) {
       case 'addTodo': {
         draft.todos.push({name: 'z+' + state.todos.length})

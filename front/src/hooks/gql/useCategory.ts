@@ -6,7 +6,11 @@ import {
   MutationUpdateCategoryArgs, Query,
   QueryCategoriesArgs, QueryCategoryArgs
 } from "../../../generated/graphql";
-import {useMutation, useQuery} from "./index";
+import { useSelector } from 'react-redux'
+import {mutation, query} from "./index";
+import {useCategoryActions} from "../../reducers/category";
+import {IStore} from "../../store";
+import {useState} from "react";
 
 const FETCH = gql`
     query fetchCategories {
@@ -66,21 +70,73 @@ const REMOVE_BY_NAME = gql`
     }
 `;
 
+const gqlActions = {
+  fetch: query<Pick<Query, 'categories'>, QueryCategoriesArgs>(FETCH),
+  find: query<Pick<Query, 'category'>, QueryCategoryArgs>(FIND),
+  create: mutation<Pick<Mutation, 'createCategory'>, MutationCreateCategoryArgs>(CREATE),
+  update: mutation<Pick<Mutation, 'updateCategory'>, MutationUpdateCategoryArgs>(UPDATE),
+  remove: mutation<Pick<Mutation, 'removeCategory'>, MutationRemoveCategoryArgs>(REMOVE),
+}
 
 export const useCategory = () => {
-  const fetch = useQuery<Pick<Query, 'categories'>, QueryCategoriesArgs>(FETCH);
-  const find = useQuery<Pick<Query, 'category'>, QueryCategoryArgs>(FIND);
-  const create = useMutation<Pick<Mutation, 'createCategory'>, MutationCreateCategoryArgs>(CREATE);
-  const update = useMutation<Pick<Mutation, 'updateCategory'>, MutationUpdateCategoryArgs>(UPDATE);
-  const remove = useMutation<Pick<Mutation, 'removeCategory'>, MutationRemoveCategoryArgs>(REMOVE);
-  const removeByName = useMutation<Pick<Mutation, 'removeCategoryByName'>, MutationRemoveCategoryByNameArgs>(REMOVE_BY_NAME);
+  const categoryActions = useCategoryActions()
+  const [loading, setLoading] = useState(false)
+
+  const fetch = (params: QueryCategoriesArgs) => {
+    setLoading(true)
+    return gqlActions.fetch(params)
+      .then((result) => {
+        categoryActions.fetch({
+          categories: result.data.categories!.data
+        });
+      }).finally(() => {
+        setLoading(false)
+      })
+  };
+
+  const find = (params: QueryCategoryArgs) => {
+    return gqlActions.find(params)
+      .then((result) => {
+        categoryActions.find({
+          category: result.data.category!
+        });
+      })
+  };
+
+  const create = (params: MutationCreateCategoryArgs) => {
+    return gqlActions.create(params)
+      .then((result) => {
+        categoryActions.create({
+          category: result.data!.createCategory!
+        });
+      })
+  };
+
+  const update = (params: MutationUpdateCategoryArgs) => {
+    return gqlActions.update(params)
+      .then((result) => {
+        categoryActions.update({
+          category: result.data!.updateCategory!
+        });
+      })
+  };
+
+  const remove = (params: MutationRemoveCategoryArgs) => {
+    return gqlActions.remove(params)
+      .then((result) => {
+        categoryActions.remove({
+          id: params.id,
+        });
+      })
+  };
 
   return {
+    category: useSelector<IStore, IStore['category']>(state => {return state.category}),
+    loading,
     fetch,
     find,
     create,
     update,
     remove,
-    removeByName,
   }
 }
