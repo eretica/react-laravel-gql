@@ -21,7 +21,7 @@ jobs:
         git checkout ${GITHUB_REF#refs/heads/} || git checkout -b ${GITHUB_REF#refs/heads/} && git pull
     - name: run storycap
       run: |
-        npm run storycap
+        npx run storycap --serverTimeout 60000 --captureTimeout 10000 --serverCmd 'start-storybook --ci -p 9009' http://localhost:9009
     - name: run reg-suit
       run: |
         npx reg-suit run
