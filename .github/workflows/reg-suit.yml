@@ -13,15 +13,15 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: "10.x"
-    - name: npm install, build, and test
+    - name: yarn install
       run: |
-        npm i
+        yarn
     - name: workaround for detached HEAD
       run: |
         git checkout ${GITHUB_REF#refs/heads/} || git checkout -b ${GITHUB_REF#refs/heads/} && git pull
     - name: run storycap
       run: |
-        npx run storycap --serverTimeout 60000 --captureTimeout 10000 --serverCmd 'start-storybook --ci -p 9009' http://localhost:9009
+        yarn run storycap
     - name: run reg-suit
       run: |
         npx reg-suit run
