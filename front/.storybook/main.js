@@ -4,5 +4,6 @@ module.exports = {
     '@storybook/addon-actions/register',
     '@storybook/addon-docs/register',
     '@storybook/addon-links/register',
+    'storycap/register',
   ],
 };
