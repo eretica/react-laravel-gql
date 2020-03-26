@@ -2,7 +2,10 @@
 
 name: reg-suit
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'frontend/**'
 
 jobs:
   build:
@@ -14,14 +17,18 @@ jobs:
       with:
         node-version: "10.x"
     - name: yarn install
+      working-directory: frontend
       run: |
         yarn
     - name: workaround for detached HEAD
+      working-directory: frontend
       run: |
         git checkout ${GITHUB_REF#refs/heads/} || git checkout -b ${GITHUB_REF#refs/heads/} && git pull
 #     - name: run storycap
+#       working-directory: frontend
 #       run: |
 #         yarn run storycap
     - name: run reg-suit
+      working-directory: frontend
       run: |
         npx reg-suit run -v
