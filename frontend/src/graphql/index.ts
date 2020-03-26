@@ -7,12 +7,15 @@ export const apolloClient = new ApolloClient({
 
 apolloClient.defaultOptions = {
   query: {
-    fetchPolicy: 'no-cache'
+    fetchPolicy: 'no-cache',
+    errorPolicy: "none",
   },
   mutate: {
-    fetchPolicy: 'no-cache'
+    fetchPolicy: 'no-cache',
+    errorPolicy: "none",
   },
   watchQuery: {
-    fetchPolicy: 'no-cache'
+    fetchPolicy: 'no-cache',
+    errorPolicy: "none",
   }
 }

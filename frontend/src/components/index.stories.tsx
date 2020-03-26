@@ -3,11 +3,12 @@ import styled from "styled-components";
 
 export const Separator: FC<{
   label?: string
-}> = ({label}) =>
+}> = ({label, children}) =>
   <Warapper>
     <LarabelWarapper>
       {label}
     </LarabelWarapper>
+    {children}
   </Warapper>
 
 export const Warapper = styled.div`

@@ -1,5 +1,6 @@
 import React, {forwardRef, InputHTMLAttributes} from 'react'
 import styled from "styled-components";
+import {Color} from "../../../const/styles";
 
 type Props = InputHTMLAttributes<HTMLInputElement>
 
@@ -8,29 +9,28 @@ export const InputText = forwardRef<HTMLInputElement, Props>(
 )
 
 const Input = styled.input`
-  color: #0384cc;
+  color: ${Color.text};
   font-size: 16px;
-  padding: 10px;
+  padding: 14px 16px;
   border-radius: 5px;
-  border:solid 1px #3fb6cc;
+  border:solid 1px ${Color.border};
   
   &:focus {
-    border:solid 2px #4cf0e8;
+    border:solid 2px ${Color.focus};
     outline:none;
-      box-shadow: 1px 5px 10px -3px rgba(169,230,248,0.6);
-  -webkit-box-shadow: 1px 5px 10px -3px rgba(169,230,248,0.6);
-  -moz-box-shadow: 1px 5px 10px -3px rgba(169,230,248,0.6);
-
+      box-shadow: 1px 5px 10px -3px ${Color.shadow};
+  -webkit-box-shadow: 1px 5px 10px -3px ${Color.shadow};
+  -moz-box-shadow: 1px 5px 10px -3px ${Color.shadow};
   }
   
   &::placeholder {
-    color: #8da5cc;
+    color: ${Color.placeholder};
   }
   
   &:disabled {
-    color: #acbdcc;
-    background: #e6edf7;
-    border:solid 1px #b5c8cc;
+    color: ${Color.disable};
+    background: ${Color.disableBackground};
+    border:solid 1px ${Color.disableBorder};
   }
 `
 
