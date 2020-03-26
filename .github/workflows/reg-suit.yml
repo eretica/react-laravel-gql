@@ -38,7 +38,7 @@ jobs:
     - name: run reg-suit
       working-directory: frontend
       run: |
-        npx reg-suit run -v
+        npx reg-suit run
 
 env: 
    REG_NOTICE_CLIENT_ID: ${{ secrets.REG_NOTICE_CLIENT_ID }}
