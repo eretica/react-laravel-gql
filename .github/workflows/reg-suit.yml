@@ -24,4 +24,4 @@ jobs:
 #         yarn run storycap
     - name: run reg-suit
       run: |
-        npx reg-suit run
+        npx reg-suit run -v
