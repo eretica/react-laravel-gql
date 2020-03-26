@@ -1,5 +1,7 @@
 # react-laravel-gql
 
+![reg-suit](https://github.com/eretica/react-laravel-gql/workflows/reg-suit/badge.svg)
+
 ## Backend 
 
 `cd backend`
