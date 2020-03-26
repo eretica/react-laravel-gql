@@ -8,7 +8,7 @@ const ReduxExample = lazy(() => import('./components/pages/ReduxExample'));
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="App" style={{margin: '10px'}}>
       <header className="App-header">
         <Suspense fallback={<div>Loading...</div>}>
         <BrowserRouter>
