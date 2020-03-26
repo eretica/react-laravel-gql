@@ -11,12 +11,12 @@ export const Separator: FC<{
     {children}
   </Warapper>
 
-export const Warapper = styled.div`
+const Warapper = styled.div`
   margin-top: 15px;
   padding-bottom: 3px;
 `
 
-export const LarabelWarapper = styled.div`
+const LarabelWarapper = styled.div`
   font: caption;
   color: gray;
 `
