@@ -8,12 +8,11 @@ import {Text} from "../../elements/Text/Text";
 interface Props {
   category: Category
   onUpdate: (id: string) => void
-  updating: boolean
+  processing: boolean
   onDelete: (id: string) => void
-  deleting: boolean
 }
 
-export const CategoryRow: FC<Props> =  ({ category, onUpdate, onDelete, updating, deleting }) => {
+export const CategoryRow: FC<Props> =  ({ category, onUpdate, onDelete, processing }) => {
   return (
     <Warapper>
       <Main>
@@ -23,16 +22,18 @@ export const CategoryRow: FC<Props> =  ({ category, onUpdate, onDelete, updating
       </Main>
       <Sub>
         <Button
+          disabled={processing}
           onClick={() => {
             onUpdate(category.id)
           }}>
-          {updating ? '...updating' : 'あっぷでーと'}
+          あっぷでーと
         </Button>
         <Button
+          disabled={processing}
           onClick={() => {
             onDelete(category.id)
           }}>
-          {deleting ? '...deleting' : 'x'}
+          x
         </Button>
       </Sub>
     </Warapper>

@@ -33,7 +33,13 @@ export const Wrapper = styled.button`
   border-radius: 4px;
   transition: .4s;
 
-&:hover {
+&:disabled {
+ color: ${Color.disable};
+ border: ${Color.disableBorder};
+ background-color: ${Color.disableBackground};
+}
+
+&:not(:disabled):hover {
   background-color: ${Color.hoverBackground};
   border-color: ${Color.hoverBorder};
   color: ${Color.hoverText};

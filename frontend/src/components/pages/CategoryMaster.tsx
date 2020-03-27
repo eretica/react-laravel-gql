@@ -6,13 +6,12 @@ import {CategoryList} from "../contexts/CategoryList/CategoryList";
 import {CategoryRow} from "../contexts/CategoryRow/CategoryRow";
 import {Header} from "../elements/Header/Header";
 import {TextOnlyForm} from "../contexts/TextOnlyForm";
+import {LoadingProvider} from "../../contexts/LoadingContext";
 
 const CategoryMaster: FC = () => {
   const {
     category,
     loading,
-    updating,
-    deleting,
     fetch,
     create,
     update,
@@ -43,18 +42,27 @@ const CategoryMaster: FC = () => {
         {category.categories.length > 0 && (
           <CategoryList >
             {category.categories.map(category => (
-              <CategoryRow
+              <LoadingProvider key={category.id}>
+                {({loading, setLoading}) => {
+                return (
+                <CategoryRow
                 key={category.id}
                 category={category}
-                onUpdate={id => {
-                  update({id, name: `${category.name}+`})
+                processing={loading}
+                onUpdate={async id => {
+                  setLoading(true)
+                  await update({id, name: `${category.name}+`})
+                  setLoading(false)
                 }}
-                updating={updating[category.id] || false}
-                onDelete={id => {
-                  remove({id})
+                onDelete={async id => {
+                  setLoading(true)
+                  await remove({id})
+                  setLoading(false)
                 }}
-                deleting={deleting[category.id] || false}
-              />
+                />
+                )
+              }}
+              </LoadingProvider>
             ))}
           </CategoryList>
         )}
