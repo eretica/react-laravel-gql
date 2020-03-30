@@ -32,6 +32,7 @@ export const Wrapper = styled.button`
   padding: 10px 16px;
   border-radius: 4px;
   transition: .4s;
+  white-space: nowrap;
 
 &:disabled {
  color: ${Color.disable};

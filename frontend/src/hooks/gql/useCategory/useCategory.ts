@@ -5,11 +5,11 @@ import {
   MutationRemoveCategoryArgs,
   MutationUpdateCategoryArgs, Query,
   QueryCategoriesArgs, QueryCategoryArgs
-} from "../../../generated/graphql";
+} from "../../../../generated/graphql";
 import { useSelector } from 'react-redux'
-import {mutation, query} from "./index";
-import {useCategoryActions} from "../../reducers/category";
-import {IStore} from "../../store";
+import {mutation, query} from "../index";
+import {useCategoryActions} from "../../../reducers/category";
+import {IStore} from "../../../store";
 import {useState} from "react";
 
 const FETCH = gql`

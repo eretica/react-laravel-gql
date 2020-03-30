@@ -1,5 +1,5 @@
 import React, {FC, useEffect} from 'react'
-import {useCategory} from "../../hooks/gql/useCategory";
+import {useCategory} from "../../hooks/gql/useCategory/useCategory";
 import {Hider} from "../elements/Hider/Hider";
 import {Button} from "../elements/Button/Button";
 import {CategoryList} from "../contexts/CategoryList/CategoryList";
