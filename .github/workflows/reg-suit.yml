@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: docker
-      uses: regviz/node-xcb 
+      uses: regviz/node-xcb
     - name: Checkout
       uses: actions/checkout@v2.0.0
 #     - name: Set Node.js 12.x
