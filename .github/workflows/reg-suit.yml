@@ -29,16 +29,16 @@ jobs:
           ${{ runner.os }}-yarn-
     - name: yarn install
       working-directory: frontend
-      run: |
-        yarn
+      run: yarn
+    - name: run storybook generate
+      working-directory: frontend
+      run: yarn run ci:storybook:generate
     - name: run storycap
       working-directory: frontend
-      run: |
-        yarn run storycap
+      run: yarn ci:storycap    
     - name: run reg-suit
       working-directory: frontend
-      run: |
-        npx reg-suit run
+      run: npx reg-suit run
 
 env: 
    REG_NOTICE_CLIENT_ID: ${{ secrets.REG_NOTICE_CLIENT_ID }}
