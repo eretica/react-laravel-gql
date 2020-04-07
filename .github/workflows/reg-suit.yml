@@ -11,12 +11,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: docker
+      uses: regviz/node-xcb 
     - name: Checkout
       uses: actions/checkout@v2.0.0
-    - name: Set Node.js 12.x
-      uses: actions/setup-node@v1.3.0
-      with:
-        node-version: 12.x
+#     - name: Set Node.js 12.x
+#       uses: actions/setup-node@v1.3.0
+#       with:
+#         node-version: 12.x
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
       run: echo "::set-output name=dir::$(yarn cache dir)"
