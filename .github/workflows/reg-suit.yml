@@ -31,10 +31,10 @@ jobs:
       working-directory: frontend
       run: |
         yarn
-#     - name: run storycap
-#       working-directory: frontend
-#       run: |
-#         yarn run storycap
+    - name: run storycap
+      working-directory: frontend
+      run: |
+        yarn run storycap
     - name: run reg-suit
       working-directory: frontend
       run: |
