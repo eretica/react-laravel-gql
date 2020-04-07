@@ -14,7 +14,7 @@
       "clientId": "$REG_NOTICE_CLIENT_ID"
     },
     "reg-publish-s3-plugin": {
-      "bucketName": "react-laravel-graphql-reg-suit"
+      "bucketName": "react-laravel-gql-reg-suit"
     }
   }
 }
