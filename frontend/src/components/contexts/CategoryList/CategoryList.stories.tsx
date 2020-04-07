@@ -21,9 +21,8 @@ storiesOf('Contexts/CategoryList', module)
           <CategoryRow
             category={category}
             onUpdate={action('onUpdate')}
-            updating={false}
             onDelete={action('onDelete')}
-            deleting={false}
+            processing={false}
           />
             ))}
           </CategoryList>
@@ -34,9 +33,8 @@ storiesOf('Contexts/CategoryList', module)
           <CategoryRow
             category={category}
             onUpdate={action('onUpdate')}
-            updating={true}
             onDelete={action('onDelete')}
-            deleting={true}
+            processing={true}
           />
         ))}
       </CategoryList>
