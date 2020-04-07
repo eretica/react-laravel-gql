@@ -34,7 +34,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook",
-    "storycap": "storycap --serverTimeout 60000 --captureTimeout 10000 --serverCmd 'start-storybook --ci -p 9009' http://localhost:9009",
+    "storycap": "storycap --serverTimeout 160000 --captureTimeout 10000 --serverCmd 'start-storybook --ci -p 9009' http://localhost:9009",
     "gql_code_gen": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {
