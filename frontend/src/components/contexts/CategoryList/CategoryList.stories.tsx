@@ -7,7 +7,7 @@ import {Category} from "../../../../generated/graphql";
 import {action} from '@storybook/addon-actions';
 
 const categories: Category[] = [
-  {id: '1', name: 'PS4', created_at: (new Date()).getTime(), updated_at: (new Date()).getTime()},
+  {id: '1', name: 'PS4!', created_at: (new Date()).getTime(), updated_at: (new Date()).getTime()},
   {id: '2', name: 'Switch', created_at: (new Date()).getTime(), updated_at: (new Date()).getTime()},
   {id: '3', name: 'Xbox', created_at: (new Date()).getTime(), updated_at: (new Date()).getTime()},
 ]
