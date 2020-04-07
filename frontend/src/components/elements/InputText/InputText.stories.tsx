@@ -11,7 +11,7 @@ storiesOf('Elements/InputText', module)
         <InputText onBlur={action('onBlur')}/>
       </Separator>
       <Separator label='with value'>
-        <InputText defaultValue='value'/>
+        <InputText defaultValue='va2lue'/>
       </Separator>
       <Separator label='with placeholder'>
         <InputText placeholder='placeholder'/>
