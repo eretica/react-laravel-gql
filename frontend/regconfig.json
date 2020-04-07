@@ -12,12 +12,9 @@
     "reg-keygen-git-hash-plugin": true,
     "reg-notify-github-plugin": {
       "clientId": "$REG_NOTICE_CLIENT_ID"
+    },
+    "reg-publish-s3-plugin": {
+      "bucketName": "react-laravel-graphql-reg-suit"
     }
-  },
-  "reg-notify-gitlab-plugin": {
-    "privateToken": "$S3_TOKEN_FOR_REG_SUIT"
-  },
-  "reg-publish-s3-plugin": {
-    "bucketName": "react-laravel-graphql-reg-suit"
   }
 }
