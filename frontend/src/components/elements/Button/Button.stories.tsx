@@ -6,6 +6,6 @@ import {Separator} from "../../index.stories";
 storiesOf('Elements/Button', module)
   .add('all', () => <>
     <Separator>
-      <Button>Click Me!!!</Button>
+      <Button>Click Me!!</Button>
     </Separator>
   </>)
