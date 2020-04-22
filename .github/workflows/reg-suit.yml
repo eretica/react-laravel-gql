@@ -30,6 +30,9 @@ jobs:
     - name: yarn install
       working-directory: frontend
       run: yarn
+    - name: workaround for detached HEAD
+      run: |
+        git checkout ${GITHUB_REF#refs/heads/} || git checkout -b ${GITHUB_REF#refs/heads/} && git pull      
     - name: run storybook generate
       working-directory: frontend
       run: yarn run ci:storybook:generate
