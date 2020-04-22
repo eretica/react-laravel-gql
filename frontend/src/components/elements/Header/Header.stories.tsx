@@ -7,7 +7,7 @@ storiesOf('Elements/Header', module)
   .add('all', () =>
   <>
     <Separator>
-      <Header>Im Header!!!</Header>
+      <Header>Im Header</Header>
     </Separator>
   </>
   )
