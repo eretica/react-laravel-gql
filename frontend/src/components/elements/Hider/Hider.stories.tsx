@@ -6,7 +6,7 @@ import {Separator} from "../../index.stories";
 storiesOf('Elements/Hider', module)
   .add('all', () => <>
       <Separator label='hide on'>
-        <Hider isHide={true}>Can not show</Hider>
+        <Hider isHide={true}>Can not show!</Hider>
       </Separator>
       <Separator label='hide off'>
         <Hider isHide={false}>Can show</Hider>
