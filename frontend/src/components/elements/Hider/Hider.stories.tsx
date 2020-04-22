@@ -12,7 +12,7 @@ storiesOf('Elements/Hider', module)
         <Hider isHide={false}>Can show</Hider>
       </Separator>
       <Separator label='hide on with instead component'>
-        <Hider isHide={true} insteadOf={<p>...instead of dummy loading</p>}>Can not show</Hider>
+        <Hider isHide={true} insteadOf={<p>...instead of dummy loading!</p>}>Can not show</Hider>
       </Separator>
     </>
   )
